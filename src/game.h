@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 #define MAX_SCORE 9999
-#define MAX_LIVES 9
+#define MAX_LIVES 3
 
 #define NOTE_MAX_AMOUNT 40
 #define NOTE_DEFAULT_SPEED 1

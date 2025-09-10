@@ -1,5 +1,6 @@
 #include <gb/gb.h>
 #include "scene_game.h"
+#include "scene_menu.h"
 #include "timer.h"
 #include "graphics.h"
 #include "tileset.h"
@@ -11,7 +12,7 @@
 
 static void load(void)
 {
-    graphics_load_tiles(backgroundTiles, 3, 0);
+    graphics_load_tiles(backgroundTiles, SPRITE_VRAM_INDEX_TOTAL, 0);
     graphics_draw_background(backgroundMap, MAP_WIDTH, MAP_HEIGHT);
 
     graphics_load_sprite(sprite_down_arrow_data, SPRITE_VRAM_INDEX_DOWN_ARROW);
@@ -46,11 +47,19 @@ static void update(void)
     apply_falling_effect();
     display_notes();
     draw_hud();
+
+    check_game_over();
 }
 
 static void unload(void)
 {
     graphics_clear();
+    timer_reset();
+    game_init();
+    for (UINT8 i = 0; i < MAX_SPRITES; i++)
+    {
+        graphics_hide_sprite(i);
+    }
 }
 
 void apply_falling_effect(void)
@@ -61,8 +70,10 @@ void apply_falling_effect(void)
         {
             game.notes[i].posy += game.notes[i].move_speed;
 
-            if (game.notes[i].posy > 144)
+            if (game.notes[i].posy > TILE_SIZE * SCREEN_TILE_HEIGHT - 2 * TILE_SIZE)
             {
+                // lose a life
+                game.lives--;
                 game.notes[i].in_used = 0;
                 graphics_hide_sprite(game.notes[i].sprite_id);
             }
@@ -106,8 +117,23 @@ void draw_hud(void)
     }
 
     char buf[32];
-    sprintf(buf, "Time:%d", timer_get_seconds());
-    graphics_draw_text(13, 1, buf);
+    sprintf(buf, "%d", timer_get_seconds());
+    graphics_draw_text(SCREEN_TILE_WIDTH - 4, 1, buf);
+
+    // display an heart for each life
+    if (game.lives < 0)
+        return;
+
+    for (UBYTE i = 0; i < MAX_LIVES; i++)
+    {
+        UINT8 tile_index;
+        if (i >= game.lives)
+            tile_index = SPRITE_VRAM_INDEX_EMPTY;
+        else
+            tile_index = SPRITE_VRAM_INDEX_HEART;
+
+        set_bkg_tiles(1 + i, 1, 1, 1, &tile_index);
+    }
 }
 
 static void handle_input(UINT8 keys, UINT8 keys_prev)
@@ -136,6 +162,16 @@ static void handle_input(UINT8 keys, UINT8 keys_prev)
     }
     if (keys & J_SELECT)
     {
+    }
+}
+
+void check_game_over(void)
+{
+    if (game.lives <= 0)
+    {
+        // Switch to game over scene
+        // Temporaryly switch to menu scene
+        scene_set(&scene_menu);
     }
 }
 

@@ -10,14 +10,12 @@ void game_init(void)
 {
     // Initialize game state
     game.score = 0;
-    game.lives = 3;
+    game.lives = MAX_LIVES;
 
     for (UBYTE i = 0; i < NOTE_MAX_AMOUNT; i++)
     {
         game_reset_note(i);
     }
-
-    scene_set(&scene_menu);
 }
 
 UBYTE game_get_random_note_index(void)
