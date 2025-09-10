@@ -18,8 +18,8 @@
 #define SPRITE_ID_UP_ARROW 1
 #define SPRITE_ID_RIGHT_ARROW 2
 #define SPRITE_ID_LEFT_ARROW 3
-#define SPRITE_ID_A 4
-#define SPRITE_ID_B 5
+#define SPRITE_ID_A_BUTTON 4
+#define SPRITE_ID_B_BUTTON 5
 
 extern const unsigned char sprite_up_arrow_data[];
 extern const unsigned char sprite_down_arrow_data[];

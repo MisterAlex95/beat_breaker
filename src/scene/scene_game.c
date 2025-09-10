@@ -103,6 +103,7 @@ void initialize_note(UBYTE index)
     // assign random sprite type
     UBYTE sprite_type = random_between(0, 5);
 
+    game.notes[index].key = sprite_type;
     graphics_assign_sprite(sprite_type, game.notes[index].sprite_id);
     graphics_move_sprite(game.notes[index].sprite_id, game.notes[index].posx, game.notes[index].posy);
 }
@@ -116,9 +117,14 @@ void draw_hud(void)
             nbr_of_notes++;
     }
 
+    // display timer
     char buf[32];
     sprintf(buf, "%d", timer_get_seconds());
     graphics_draw_text(SCREEN_TILE_WIDTH - 4, 1, buf);
+
+    // display score
+    sprintf(buf, "%d", game.score);
+    graphics_draw_text(6, 1, buf);
 
     // display an heart for each life
     if (game.lives < 0)
@@ -138,30 +144,24 @@ void draw_hud(void)
 
 static void handle_input(UINT8 keys, UINT8 keys_prev)
 {
-    if (keys & J_UP)
+    for (UBYTE i = 0; i < NOTE_MAX_AMOUNT; i++)
     {
-    }
-    if (keys & J_DOWN)
-    {
-    }
-    if (keys & J_LEFT)
-    {
-    }
-    if (keys & J_RIGHT)
-    {
-    }
-
-    if (keys & J_A)
-    {
-    }
-    if (keys & J_B)
-    {
-    }
-    if (keys & J_START)
-    {
-    }
-    if (keys & J_SELECT)
-    {
+        if (game.notes[i].in_used)
+        {
+            // Check for corresponding key press
+            if ((game.notes[i].key == SPRITE_ID_DOWN_ARROW && (keys & J_DOWN)) ||   // Down arrow
+                (game.notes[i].key == SPRITE_ID_UP_ARROW && (keys & J_UP)) ||       // Up arrow
+                (game.notes[i].key == SPRITE_ID_RIGHT_ARROW && (keys & J_RIGHT)) || // Right arrow
+                (game.notes[i].key == SPRITE_ID_LEFT_ARROW && (keys & J_LEFT)) ||   // Left arrow
+                (game.notes[i].key == SPRITE_ID_A_BUTTON && (keys & J_A)) ||        // A button
+                (game.notes[i].key == SPRITE_ID_B_BUTTON && (keys & J_B)))          // B button
+            {
+                // Successful hit
+                game.score += 10; // Increase score
+                game.notes[i].in_used = 0;
+                graphics_hide_sprite(game.notes[i].sprite_id);
+            }
+        }
     }
 }
 
@@ -169,7 +169,6 @@ void check_game_over(void)
 {
     if (game.lives <= 0)
     {
-        // Switch to game over scene
         // Temporaryly switch to menu scene
         scene_set(&scene_menu);
     }
