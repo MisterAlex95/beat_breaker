@@ -6,29 +6,33 @@
 
 #define MAX_SCORE 9999
 #define MAX_LIVES 9
-#define PLAYER_START_X 10
-#define PLAYER_START_Y 8
+
+#define NOTE_MAX_AMOUNT 32
+#define NOTE_DEFAULT_SPEED 1
+#define NOTE_MAX_SPEED 1
+#define NOTE_DEFAULT_TILE 0
 
 typedef struct
 {
-    UBYTE x;
-    UBYTE y;
+    UBYTE in_used;
     UBYTE sprite_id;
-    UBYTE direction;  // 0=up, 1=right, 2=down, 3=left
-    UBYTE moving;     // 1 if currently moving, 0 if stationary
-    UBYTE move_timer; // Timer for smooth movement
-    UBYTE move_speed; // Movement speed (frames per tile)
-} player_t;
+    UBYTE move_speed;
+    UBYTE posx;
+    UBYTE posy;
+    UBYTE key;
+} note_t;
 
 typedef struct
 {
-    player_t player;
+    note_t notes[NOTE_MAX_AMOUNT];
     UBYTE score;
     UBYTE lives;
 } game_t;
 
-void init_game(void);
-void update_game(void);
+void game_init(void);
+void game_update_game(void);
+void game_reset_note(UBYTE index);
+UBYTE game_get_random_note_index(void);
 
 extern game_t game;
 

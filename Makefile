@@ -32,6 +32,7 @@ SOURCES = \
 	$(SRC_DIR)/game.c \
 	$(SRC_SYSTEM_DIR)/scene.c \
 	$(SRC_ENGINE_DIR)/graphics.c \
+	$(SRC_ENGINE_DIR)/timer.c \
 	$(SRC_ENGINE_DIR)/input.c \
 	$(SRC_SCENE_DIR)/scene_menu.c \
 	$(SRC_SCENE_DIR)/scene_game.c \

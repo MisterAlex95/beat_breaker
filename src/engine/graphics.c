@@ -30,12 +30,14 @@ void graphics_draw_background(const unsigned char *map, UINT8 width, UINT8 heigh
     set_bkg_tiles(0, 0, width, height, map);
 }
 
-UINT8 graphics_create_sprite(const unsigned char *sprite_data, UINT8 sprite_vram_index, UINT8 x, UINT8 y)
+void graphics_load_sprite(const unsigned char *sprite_data, UINT8 vram_tile_index)
 {
-    set_sprite_data(sprite_vram_index, 1, sprite_data);
-    set_sprite_tile(sprite_vram_index, sprite_vram_index);
-    move_sprite(sprite_vram_index, x, y);
-    return sprite_vram_index;
+    set_sprite_data(vram_tile_index, 1, sprite_data);
+}
+
+void graphics_assign_sprite(UINT8 vram_tile_index, UINT8 sprite_id)
+{
+    set_sprite_tile(sprite_id, vram_tile_index);
 }
 
 void graphics_move_sprite(UINT8 sprite_id, UINT8 x, UINT8 y)

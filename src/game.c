@@ -6,25 +6,48 @@
 
 game_t game;
 
-void init_game(void)
+void game_init(void)
 {
     // Initialize game state
     game.score = 0;
     game.lives = 3;
 
-    // Initialize player position (center of screen for testing)
-    game.player.x = 10;        // Center horizontally
-    game.player.y = 9;         // Center vertically
-    game.player.sprite_id = 4; // Use tile 5 (player sprite)
-    game.player.direction = 2; // Start facing down
-    game.player.moving = 0;
-    game.player.move_timer = 0;
-    game.player.move_speed = 8; // Not used in simple movement
+    for (UBYTE i = 0; i < NOTE_MAX_AMOUNT; i++)
+    {
+        game_reset_note(i);
+    }
 
     scene_set(&scene_menu);
 }
 
-void update_game(void)
+UBYTE game_get_random_note_index(void)
+{
+    for (UBYTE i = 0; i < NOTE_MAX_AMOUNT; i++)
+    {
+        if (game.notes[i].in_used == 0)
+        {
+            return i;
+        }
+    }
+
+    return 255; // Return 255 to indicate no available index
+}
+
+void game_reset_note(UBYTE index)
+{
+    if (index > NOTE_MAX_AMOUNT)
+    {
+        return;
+    }
+
+    game.notes[index].in_used = 0;
+    game.notes[index].sprite_id = NOTE_DEFAULT_TILE;
+    game.notes[index].move_speed = NOTE_DEFAULT_SPEED;
+    game.notes[index].posx = 0;
+    game.notes[index].posy = 0;
+}
+
+void game_update_game(void)
 {
     scene_update();
 }
