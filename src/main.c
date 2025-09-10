@@ -7,7 +7,7 @@ void main(void)
 {
     CRITICAL
     {
-        init_graphics();
+        graphics_init();
         input_init();
         init_game();
     }

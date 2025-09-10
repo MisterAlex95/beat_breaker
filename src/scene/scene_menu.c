@@ -1,5 +1,6 @@
 #include <gbdk/console.h>
 #include "scene_menu.h"
+#include "graphics.h"
 #include "input.h"
 #include "game.h"
 #include "math.h"
@@ -56,7 +57,7 @@ static void handle_input(UINT8 keys, UINT8 keys_prev)
 
 static void unload(void)
 {
-    // clean
+    graphics_clear();
 }
 
 Scene scene_menu = {

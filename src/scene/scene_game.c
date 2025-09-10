@@ -3,23 +3,26 @@
 #include "scene_game.h"
 #include "scene_menu.h"
 
+#include "tileset.h"
+
 #include "input.h"
 #include "graphics.h"
 #include "game.h"
 
 static void load()
 {
-    draw_background();
+    graphics_load_tiles(tile_data, TILE_COUNTER, 0);
+    graphics_create_sprite(sprite_sheet_gameplay_data, 0, 10, 10);
 }
 
 static void update(void)
 {
-    draw_player(game.player.x, game.player.y);
+    graphics_move_sprite(game.player.sprite_id, game.player.x, game.player.y);
 }
 
 static void unload()
 {
-    clear_screen();
+    graphics_clear();
 }
 
 static void handle_input(UINT8 keys, UINT8 keys_prev)

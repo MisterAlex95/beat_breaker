@@ -2,22 +2,21 @@
 #define GRAPHICS_H
 
 #include <gb/gb.h>
-#include <stdio.h>
 
-// Screen dimensions
-#define SCREEN_WIDTH 160
-#define SCREEN_HEIGHT 144
+#define SCREEN_TILE_WIDTH 20
+#define SCREEN_TILE_HEIGHT 18
 #define TILE_SIZE 8
 
-// Initialization
-void init_graphics(void);
-void init_main_menu_graphics(void);
-void init_game_graphics(void);
+void graphics_init(void);
+void graphics_clear(void);
 
-void draw_background(void);
-void load_tiles(void);
-void clear_screen(void);
+void graphics_load_tiles(const unsigned char *tiles, UINT16 tile_count, UINT8 vram_index);
+void graphics_draw_background(const unsigned char *map, UINT8 width, UINT8 height);
 
-void draw_player(UBYTE x, UBYTE y);
+UINT8 graphics_create_sprite(const unsigned char *sprite_data, UINT8 sprite_vram_index, UINT8 x, UINT8 y);
+void graphics_move_sprite(UINT8 sprite_id, UINT8 x, UINT8 y);
+void graphics_hide_sprite(UINT8 sprite_id);
+
+void graphics_draw_text(UINT8 x, UINT8 y, const char *text);
 
 #endif // GRAPHICS_H

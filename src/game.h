@@ -9,14 +9,6 @@
 #define PLAYER_START_X 10
 #define PLAYER_START_Y 8
 
-typedef enum
-{
-    GAME_STATE_MENU,
-    GAME_STATE_PLAYING,
-    GAME_STATE_PAUSED,
-    GAME_STATE_GAME_OVER
-} game_state_t;
-
 typedef struct
 {
     UBYTE x;
@@ -30,7 +22,6 @@ typedef struct
 
 typedef struct
 {
-    game_state_t state;
     player_t player;
     UBYTE score;
     UBYTE lives;

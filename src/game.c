@@ -9,7 +9,6 @@ game_t game;
 void init_game(void)
 {
     // Initialize game state
-    game.state = GAME_STATE_MENU;
     game.score = 0;
     game.lives = 3;
 
@@ -27,6 +26,5 @@ void init_game(void)
 
 void update_game(void)
 {
-    input_update(scene_current());
     scene_update();
 }
