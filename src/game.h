@@ -7,7 +7,7 @@
 #define MAX_SCORE 9999
 #define MAX_LIVES 9
 
-#define NOTE_MAX_AMOUNT 32
+#define NOTE_MAX_AMOUNT 40
 #define NOTE_DEFAULT_SPEED 1
 #define NOTE_MAX_SPEED 1
 #define NOTE_DEFAULT_TILE 0

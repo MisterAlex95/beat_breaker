@@ -30,7 +30,7 @@ UBYTE game_get_random_note_index(void)
         }
     }
 
-    return 255; // Return 255 to indicate no available index
+    return 255;
 }
 
 void game_reset_note(UBYTE index)

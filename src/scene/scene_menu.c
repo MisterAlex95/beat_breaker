@@ -51,7 +51,7 @@ static void handle_input(UINT8 keys, UINT8 keys_prev)
         if (selected_option == 0)
             scene_set(&scene_game);
         else
-            exit();
+            exit(0);
     }
 }
 

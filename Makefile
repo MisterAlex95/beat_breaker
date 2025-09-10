@@ -36,7 +36,9 @@ SOURCES = \
 	$(SRC_ENGINE_DIR)/input.c \
 	$(SRC_SCENE_DIR)/scene_menu.c \
 	$(SRC_SCENE_DIR)/scene_game.c \
-	$(SRC_ASSETS_DIR)/tileset.c
+	$(SRC_ASSETS_DIR)/tileset.c \
+	$(SRC_ASSETS_DIR)/ui.c \
+	$(SRC_UTILS_DIR)/math.c
 
 # ============================================================================
 # COMPILER FLAGS
