@@ -11,21 +11,32 @@
 #define NOTE_DEFAULT_SPEED 1
 #define NOTE_MAX_SPEED 1
 #define NOTE_DEFAULT_TILE 0
+#define NOTE_SCORE_VALUE 10
+
+#define MAX_SIMULTANEOUS_MALUS 3
+#define MALUS_SPAWN_CHANCE 20  // Percentage chance (0-100)
+#define MALUS_SPRITE_OFFSET 9  // Offset for malus sprite IDs
 
 typedef struct
 {
-    UBYTE in_used;
-    UBYTE sprite_id;
-    UBYTE move_speed;
-    UBYTE posx;
-    UBYTE posy;
-    UBYTE key;
+    UBYTE in_used : 1;        // Use bit field to save memory
+    UBYTE has_malus : 1;      // Use bit field to save memory
+    UBYTE sprite_id;          // Keep as UBYTE for sprite indexing
+    UBYTE malus_sprite_id;    // Keep as UBYTE for sprite indexing
+    UBYTE move_speed;         // Keep as UBYTE (small values)
+    UBYTE key;                // Keep as UBYTE (sprite ID)
+    
+    UINT16 posx;              // Position needs 16-bit for screen coordinates
+    UINT16 posy;              // Position needs 16-bit for screen coordinates
+    
+    uint32_t spawn_tick;      // Keep for timing
+    uint32_t malus_start_tick; // Keep for malus animation timing
 } note_t;
 
 typedef struct
 {
     note_t notes[NOTE_MAX_AMOUNT];
-    UBYTE score;
+    uint16_t score;
     UBYTE lives;
 } game_t;
 
