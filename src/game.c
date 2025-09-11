@@ -2,7 +2,7 @@
 #include "scene.h"
 #include "input.h"
 #include "graphics.h"
-#include "scene/scene_menu.h"
+#include "scene_menu.h"
 
 game_t game;
 

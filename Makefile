@@ -11,6 +11,8 @@ SRC_DIR = src
 SRC_ENGINE_DIR = src/engine
 SRC_SYSTEM_DIR = src/system
 SRC_SCENE_DIR = src/scene
+SRC_SCENE_GAME = src/scene/game/
+SRC_SCENE_MENU = src/scene/menu/
 SRC_UTILS_DIR = src/utils
 SRC_ASSETS_DIR = src/assets
 
@@ -34,8 +36,8 @@ SOURCES = \
 	$(SRC_ENGINE_DIR)/graphics.c \
 	$(SRC_ENGINE_DIR)/timer.c \
 	$(SRC_ENGINE_DIR)/input.c \
-	$(SRC_SCENE_DIR)/scene_menu.c \
-	$(SRC_SCENE_DIR)/scene_game.c \
+	$(SRC_SCENE_MENU)/scene_menu.c \
+	$(SRC_SCENE_GAME)/scene_game.c \
 	$(SRC_ASSETS_DIR)/tileset.c \
 	$(SRC_ASSETS_DIR)/ui.c \
 	$(SRC_UTILS_DIR)/math.c
@@ -44,7 +46,13 @@ SOURCES = \
 # COMPILER FLAGS
 # ============================================================================
 
-CFLAGS = -Wa-l -Wl-m -Wl-j -I$(SRC_DIR) -I$(SRC_ENGINE_DIR) -I$(SRC_SYSTEM_DIR) -I$(SRC_SCENE_DIR) -I$(SRC_ASSETS_DIR) -I$(SRC_UTILS_DIR)
+CFLAGS = -Wa-l -Wl-m -Wl-j -I$(SRC_DIR) \
+	-I$(SRC_ENGINE_DIR) \
+	-I$(SRC_SYSTEM_DIR) \
+	-I$(SRC_SCENE_GAME) \
+	-I$(SRC_SCENE_MENU) \
+	-I$(SRC_ASSETS_DIR) \
+	-I$(SRC_UTILS_DIR)
 
 # ============================================================================
 # TARGETS
