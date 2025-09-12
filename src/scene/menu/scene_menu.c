@@ -41,8 +41,11 @@ static void update(void)
 
 static void handle_input(UINT8 keys, UINT8 keys_prev)
 {
+    (void)keys_prev;
+
     if (keys & J_UP)
         selected_option = MAX(selected_option - 1, 0);
+
     if (keys & J_DOWN)
         selected_option = MIN(selected_option + 1, 1);
 
